@@ -1,10 +1,11 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse,Http404
-from .models import Image,Profile
+from .models import Image,Profile,Comments
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
-from .forms import NewPostForm,SignUpForm,EditProfileForm
+from .forms import NewPostForm,SignUpForm,EditProfileForm,CommentForm
+from django.contrib import messages
 
 
 
@@ -69,3 +70,11 @@ def edit_profile(request):
         else:
             form = EditProfileForm(instance=request.user)
         return render(request,'profile.html',{'form':form})
+
+@login_required(login_url = '/accounts/login/')
+def single_pic(request,id):
+        try:
+            post = Image.objects.get(id = id)
+        except DoesNotExist:
+            raise Http404()
+        return render(request,'single_pic.html',{'post':post})
