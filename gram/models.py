@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 
@@ -11,11 +12,13 @@ class Profile(models.Model):
     def __str__(self):
         return self.username
 
+
 class Image(models.Model):
     ig_pic = models.ImageField(upload_to= 'pictures/')
     name = models.CharField(max_length=50)
     caption = models.CharField(max_length=300)
-    user = models.ForeignKey(Profile,on_delete = models.CASCADE)
+    user = models.ForeignKey(User,on_delete = models.CASCADE)
+    likes = models.ManyToManyField(User, related_name='likes' ,blank=True,)
     
 
     def save_image(self):
@@ -33,6 +36,19 @@ class Image(models.Model):
     def user_pics(cls,user):
         user_pic = cls.objects.filter(user = user)
         return user_pic
+
+    @classmethod
+    def one_pic(cls,id):
+        one_pic = cls.objects.filter(id = ig_pic_id)
+        return one_pic
+
+
+    @property
+    def all_likes(self):
+        return self.likes.count()
+
+
+
 
 
 
