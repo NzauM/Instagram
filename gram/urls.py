@@ -9,6 +9,7 @@ urlpatterns=[
     url(r'^newpost/$',views.new_post,name='newpost'),
     url(r'^editprofile/$',views.edit_profile,name='editprofile'),
     url(r'^accounts/profile/$',views.profile,name='profile'),
+    url(r'^singlepic/(\d+)',views.single_pic,name='singlepic'),
 
 ]
 
