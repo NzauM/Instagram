@@ -12,6 +12,14 @@ class Profile(models.Model):
     def __str__(self):
         return self.username
 
+    def search_user(cls,username):
+        found_user = User.objects.get(username = username)
+
+    def save_profile(self):
+        self.save()
+
+    def delete_profile(self):
+        self.delete()
 
 class Image(models.Model):
     ig_pic = models.ImageField(upload_to= 'pictures/')
