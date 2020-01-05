@@ -7,6 +7,9 @@ urlpatterns=[
     url(r'^$',views.timeline,name = 'timeline'),
     url(r'^like/$',views.like,name='like'),
     url(r'^newpost/$',views.new_post,name='newpost'),
+    url(r'^editprofile/$',views.edit_profile,name='editprofile'),
+    url(r'^accounts/profile/$',views.profile,name='profile'),
+
 ]
 
 if settings.DEBUG:
