@@ -4,7 +4,7 @@ from .models import Image,Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
-from .forms import NewPostForm,SignUpForm
+from .forms import NewPostForm,SignUpForm,EditProfileForm
 
 
 
@@ -53,3 +53,19 @@ def signUp(request):
 
     return render(request,'registration/registration_form.html',{'form':form})
 
+@login_required(login_url = '/accounts/login/')
+def profile(request):
+    my_posts = Image.user_pics(request.user)
+    return render(request,'profile.html',{'my_posts':my_posts})
+
+@login_required(login_url = '/accounts/login/')
+def edit_profile(request):
+    if request.method=='POST':
+        form = EditProfileForm(request.POST,request.FILES,instance=request.user.profile)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+
+        else:
+            form = EditProfileForm(instance=request.user)
+        return render(request,'profile.html',{'form':form})
