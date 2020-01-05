@@ -1,2 +1,25 @@
 {% load bootstrap4 %}
-<h1>This is the timeline</h1>
+{% block content %}
+<div class="container">
+        <h1>This is the timeline</h1>
+    <div class="row">
+            {% for pic in timeline_pics %}
+        <div class="col-md-6">
+            <img width="500px" height="450px" src=" {{pic.ig_pic.url}} " alt="Image">
+        </div>
+        <div class="col-md-6">
+            <h1> {{pic.name}} </h1>
+            <h1> {{pic.caption}} </h1>
+            <h1> {{pic.user}} </h1>
+            <form action=" {% url 'like'  %}  ">
+              <button class="btn btn-outline" type="submit" value="{{ig_pic.id}}">Like</button>
+            </form>
+        </div>
+    </div>
+    {% empty %}
+    <div class="row">
+        <h2>No images at the moment</h2>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
