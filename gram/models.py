@@ -50,6 +50,11 @@ class Image(models.Model):
         one_pic = cls.objects.filter(id = ig_pic_id)
         return one_pic
 
+    @classmethod
+    def search_image(cls,search_term):
+        searched_image = cls.objects.filter(name_icontains=search_term)
+        return searched_image
+
 
     @property
     def all_likes(self):
