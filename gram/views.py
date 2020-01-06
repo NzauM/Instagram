@@ -14,11 +14,17 @@ from django.contrib.auth import logout
 
 @login_required(login_url = '/accounts/login/')
 def timeline(request):
+    '''
+    Function to render the homepage
+    '''
     timeline_pics = Image.all_images()
     return render(request,'timeline.html',{"timeline_pics":timeline_pics})
     
 
 def like(request,id):
+    '''
+    Function to like a post
+    '''
     image = get_object_or_404(Image,id=request.POST.get('ig_pic_id'))
     user = request.User
     image.likes.add(user)
@@ -26,6 +32,9 @@ def like(request,id):
 
 @login_required(login_url = '/accounts/login/')
 def new_post(request):
+    '''
+    Function that uploads a new post
+    '''
     if request.method=='POST':
         form = NewPostForm(request.POST,request.FILES)
         if form.is_valid():
@@ -41,6 +50,9 @@ def new_post(request):
     return render(request,'new_post.html',{'form':form})
 
 def signUp(request):
+    '''
+    Function that sends email on sign up
+    '''
     if request.method=='POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -57,11 +69,17 @@ def signUp(request):
 
 @login_required(login_url = '/accounts/login/')
 def profile(request):
+    '''
+    Function that renders the active user's profile
+    '''
     my_posts = Image.user_pics(request.user)
     return render(request,'profile.html',{'my_posts':my_posts})
 
 @login_required(login_url = '/accounts/login/')
 def edit_profile(request):
+    '''
+    Function that updates profile information
+    '''
     if request.method=='POST':
         form = EditProfileForm(request.POST,request.FILES)
         if form.is_valid():
@@ -74,6 +92,9 @@ def edit_profile(request):
 
 @login_required(login_url = '/accounts/login/')
 def comment(request,id):
+    '''
+    Function for commenting on a post,Args:id The id of the post
+    '''
     id =id
     if request.method=='POST':
         form = CommentForm(request.POST)
@@ -98,12 +119,19 @@ def comment(request,id):
 
 @login_required(login_url = '/accounts/login/')
 def single_pic(request,id):
+    '''
+    Function for getting just a single post
+    Args:id The id of the post
+    '''
     post = Image.objects.get(id = id)
     comments = Comments.objects.filter(ig_pic_id = id)
     return render(request,'single_pic.html',{'post':post,"comments":comments})
 
 @login_required(login_url = '/accounts/login/')
 def search_results(request):
+    '''
+    Function for searching a post with its name
+    '''
     if 'image' in request.GET and request.GET['image']:
         search_term = request.GET.get('image')
         searched_pics = Image.search_image(search_term)
@@ -117,6 +145,9 @@ def search_results(request):
 
 @login_required(login_url="/accounts/login/")
 def logout_request(request):
-  
+  '''
+  Function for logging out user
+  '''
+
   logout(request)
   return redirect('timeline')

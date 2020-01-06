@@ -83,10 +83,20 @@ class CommentTestCase(TestCase):
     def test_instance(self):
         self.assertTrue(isinstance(self.comment,Comments))
 
-    def test_instance_follow(self):
-        self.assertTrue(isinstance(self.follow,Followers))
+    def test_save_comment(self):
+        '''
+        Test case to save comments on posts
+        '''
+        self.comment.save_comment()
+        comments = Comments.objects.all()
+        self.assertEqual(len(comments),1)
 
-    def test_save(self):
-        self.follow.save_followers()
-        followers=Followers.objects.all()
-        self.assertTrue(len(followers)>0)
+    def test_delete_comment(self):
+        '''
+        Test case to test the deletion of a comment
+        '''
+        self.comment.save_comment()
+        self.comment.delete_comment()
+        comment_list = Comments.objects.all()
+        self.assertTrue(len(comment_list)==0)
+
