@@ -63,7 +63,7 @@ def profile(request):
 @login_required(login_url = '/accounts/login/')
 def edit_profile(request):
     if request.method=='POST':
-        form = EditProfileForm(request.POST,request.FILES,instance=request.user.profile)
+        form = EditProfileForm(request.POST,request.FILES,instance=request.user.Profile)
         if form.is_valid():
             form.save()
             return redirect('profile')
