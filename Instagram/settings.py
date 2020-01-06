@@ -136,3 +136,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'nzauprojects@gmail.com'
 EMAIL_HOST_PASSWORD = 'ProjectsMoringa'
 EMAIL_PORT = 587
+
+LOGIN_REDIRECT_URL = '/'
+
+

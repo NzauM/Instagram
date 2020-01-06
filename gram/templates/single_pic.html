@@ -14,12 +14,19 @@
                       <p class="card-text"><b>Posted by:</b> {{post.user}} </p>
                       <p class="card-text">Likes: {{post.likes.count}}</p>
 
-                      <a href="#" class="btn btn-primary">Comment</a>
+                      <a href="{%url 'comment' post.id%}" class="btn btn-primary">Comment</a>
                       <form action="{% url 'like' %}" method="post">
                             {% csrf_token %}
                             <button class="like" type="submit" name="post_id" value="{{post.id}}">
                           </button>
                           </form>
+
+                          {% for comment in comments%}
+                            {{comment.text}}
+                          {%empty%}
+                          <p>empty nani</p> 
+                          {%endfor%}
+
                     </div>
                   </div>
 
