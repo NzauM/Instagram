@@ -1,6 +1,3 @@
-# Instagram
-
-
 ## @Moments.
 # Author
 [NzauM](https://github.com/NzauM/Galleria.git)
