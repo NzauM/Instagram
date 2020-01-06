@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from .forms import NewPostForm,SignUpForm,EditProfileForm,CommentForm
 from django.contrib import messages
+from django.contrib.auth import logout
 
 
 
@@ -78,3 +79,22 @@ def single_pic(request,id):
         except DoesNotExist:
             raise Http404()
         return render(request,'single_pic.html',{'post':post})
+
+@login_required(login_url = '/accounts/login/')
+def search_results(request):
+    if 'image' in request.GET and request.GET['image']:
+        search_term = request.GET.get('image')
+        searched_pics = Image.search_image(search_term)
+        message = f'{search_term}'
+
+        return render(request,'search.html',{'message':message,'image':searched_pics})
+
+    else:
+        message = "You have not entered anything to search"
+        return render(request,'search.html',{"message":message})
+
+@login_required(login_url="/accounts/login/")
+def logout_request(request):
+  
+  logout(request)
+  return redirect('timeline')

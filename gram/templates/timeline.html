@@ -1,25 +1,66 @@
+{% extends 'base.html' %}
 {% load bootstrap4 %}
 {% block content %}
 <div class="container">
-        <h1>This is the timeline</h1>
+        <h2 style="text-align: center;">News Feed</h2>
     <div class="row">
             {% for pic in timeline_pics %}
-        <div class="col-md-6">
-            <img width="500px" height="450px" src=" {{pic.ig_pic.url}} " alt="Image">
-        </div>
-        <div class="col-md-6">
-            <h1> {{pic.name}} </h1>
-            <h1> {{pic.caption}} </h1>
-            <h1> {{pic.user}} </h1>
-            <form action=" {% url 'like'  %}  ">
-              <button class="btn btn-outline" type="submit" value="{{image.id}}">Like</button>
-            </form>
-        </div>
-    </div>
+            <div class="card" style="width:500px">
+                    <h4 style="text-align: center;"  class="card-title pictitle"> {{pic.name}} </h4>
+                    <a href="/singlepic/{{pic.id}}">
+                    <img class="timelinepics card-img-top" width="500px" height="450px" src=" {{pic.ig_pic.url}} " alt="Image"></a>
+                    <div class="card-body">
+                      
+                      <p style="text-align: center;" class="card-text">{{pic.caption}}</p>
+                      <p class="card-text">Posted by: {{pic.user}}</p>
+                      <div class="card-footer">
+                            <a href="#" class="btn btn-outline "> <button>Comment</button></a>
+                            <form action=" {% url 'like'  %}  ">
+                                    <button class="btn btn-outline" type="submit" value="{{image.id}}">Like</button>
+                                </form>
+                              
+                      </div>
+                      
+                    </div>
+                  </div>
+       
+            
+       
+           
+            
+   
+        
+           
+            
+            
+            <!-- <a href="/comment/{{id}}"><button>Comment</button></a> -->
+            
+    
     {% empty %}
     <div class="row">
         <h2>No images at the moment</h2>
     </div>
     {% endfor %}
 </div>
+</div>
+<style>
+    
+    .pictitle{
+        margin-top: 3%;
+    }
+    .card{
+        margin: 3%;
+    }
+    .timelinepics {
+        height: 400px;
+        transition: transform .2s;
+    }
+
+    .timelinepics:hover {
+        -ms-transform: scale(0.8);
+        -webkit-transform: scale(0.8);
+        transform: scale(0.8);
+        box-shadow: 5px 5px 5px pink;
+    }
+</style>
 {% endblock %}
