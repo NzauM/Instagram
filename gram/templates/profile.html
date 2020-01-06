@@ -46,9 +46,7 @@
                               <p class="card-text">Posted by: {{post.user}}</p>
                               <div class="card-footer">
                                     <a href="{%url 'comment' post.id%}" class="btn btn-outline "> <button>Comment</button></a>
-                                    <form action=" {% url 'like'  %}  ">
-                                            <button class="btn btn-outline" type="submit" value="{{image.id}}">Like</button>
-                                        </form>
+                                    
                                       
                               </div>
                               
